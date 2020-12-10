@@ -2,7 +2,7 @@ import express from 'express';
 import {YoutubeDl} from "./YoutubeDl";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.get('/v1/video', async (req, res) => {
     try {
