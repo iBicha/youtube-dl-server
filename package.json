@@ -4,7 +4,7 @@
   "description": "Youtube Rest API, powered by youtube-dl",
   "main": "dist/app.js",
   "scripts": {
-    "start": "tsc && node .",
+    "start": "node_modules/.bin/tsc && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
