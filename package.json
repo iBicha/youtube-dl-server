@@ -4,7 +4,8 @@
   "description": "Youtube Rest API, powered by youtube-dl",
   "main": "dist/app.js",
   "scripts": {
-    "start": "node node_modules/.bin/tsc && node .",
+    "postinstall": "npm install -g typescript",
+    "start": "tsc && node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
