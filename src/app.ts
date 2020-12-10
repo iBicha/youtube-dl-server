@@ -4,7 +4,7 @@ import {YoutubeDl} from "./YoutubeDl";
 const app = express();
 const port = 3000;
 
-app.get('/video', async (req, res) => {
+app.get('/v1/video', async (req, res) => {
     try {
         const url = req.query.url as string;
         const options = req.query.options as string;
@@ -22,7 +22,7 @@ app.get('/video', async (req, res) => {
     }
 });
 
-app.get('/update', async (req, res) => {
+app.get('/v1/update', async (req, res) => {
     try {
         await YoutubeDl.downloadTools(true);
         res.send('youtube-dl updated to latest version.');
