@@ -22,17 +22,6 @@ app.get('/v1/video', async (req, res) => {
     }
 });
 
-app.get('/v1/update', async (req, res) => {
-    try {
-        await YoutubeDl.downloadTools(true);
-        res.send('youtube-dl updated to latest version.');
-    } catch (e) {
-        console.error(e)
-        res.status(500);
-        res.send(e);
-    }
-});
-
 app.listen(port, () => {
     return console.log(`server is listening on http://localhost:${port}`);
 });
