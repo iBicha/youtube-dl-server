@@ -1,10 +1,13 @@
 import {ExecException} from "child_process";
 
 const { exec } = require("child_process");
+
+const isWin = process.platform === "win32";
+
 export class YoutubeDl {
     public static async getVideoMetadata(url: string, options?: string) {
         options = options ||  '-f \'best\'';
-        const command = `tools/bin/youtube-dl ${options} --dump-json ${url}`;
+        const command = `tools/bin/youtube-dl${isWin ? '.exe' : ''} ${options} --dump-json ${url}`;
         return await new Promise<any>((resolve, reject) => {
             exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
                 if(error) {

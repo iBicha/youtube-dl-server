@@ -1,9 +1,11 @@
 const fs = require('fs')
 const request = require("request");
 
-const url = 'https://yt-dl.org/downloads/latest/youtube-dl'
+const isWin = process.platform === "win32";
+
+let url = 'https://yt-dl.org/downloads/latest/youtube-dl' + (isWin ? '.exe' : '')
 const destFolder = './tools/bin'
-const destFile = destFolder + '/youtube-dl'
+let destFile = destFolder + '/youtube-dl' + (isWin ? '.exe' : '')
 
 function download(url, dest, cb) {
     request(url, cb).pipe(fs.createWriteStream(dest))
@@ -14,5 +16,7 @@ download(url, destFile, function (err) {
     if(err) {
         throw err;
     }
-    fs.chmodSync(destFile, '755');
+    if(!isWin) {
+        fs.chmodSync(destFile, '755');
+    }
 })
