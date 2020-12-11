@@ -21,7 +21,7 @@ export class YoutubeDl {
                     console.log(error)
                     console.log(stdout)
                     console.log(stderr)
-                    reject('youtube-dl did not respond with valid json: ' + stdout);
+                    reject('youtube-dl did not respond with valid json: ' + stdout + stderr);
                 }
             });
         });
