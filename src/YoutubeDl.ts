@@ -5,7 +5,7 @@ const https = require('https');
 const { exec } = require("child_process");
 export class YoutubeDl {
     public static async getVideoMetadata(url: string, options?: string) {
-        //await this.downloadTools();
+        await this.downloadTools();
         options = options ||  '-f \'best\'';
         const command = `youtube-dl ${options} --dump-json ${url}`;
         return await new Promise<any>((resolve, reject) => {

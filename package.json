@@ -5,7 +5,6 @@
   "main": "dist/app.js",
   "scripts": {
     "start": "ts-node src/app.ts",
-    "postinstall": "mkdir -p tools/bin && wget https://yt-dl.org/downloads/latest/youtube-dl -O tools/bin/youtube-dl && chmod a+rx tools/bin/youtube-dl",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
