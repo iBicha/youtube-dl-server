@@ -7,9 +7,9 @@ export class YoutubeDl {
     public static async getVideoMetadata(url: string, options?: string) {
         //await this.downloadTools();
         options = options ||  '-f \'best\'';
-        const command = `youtube-dl ${options} --dump-json ${url}`;
+        const command = `tools/bin/youtube-dl ${options} --dump-json ${url}`;
         return await new Promise<any>((resolve, reject) => {
-            exec(command, {cwd:'tools/bin'},(error: ExecException | null, stdout: string, stderr: string) => {
+            exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
                 if(error) {
                     reject(error);
                     return
