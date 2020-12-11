@@ -1,8 +1,11 @@
 import express from 'express';
+const cors = require('cors');
 import {YoutubeDl} from "./YoutubeDl";
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(cors())
 
 app.get('/v1/video', async (req, res) => {
     try {
