@@ -8,6 +8,9 @@ Intended to provide raw video url and other metadata as a json payload, not as a
 npm install
 npm start
 ```
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
 ## API
 
 ```
