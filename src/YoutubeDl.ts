@@ -12,16 +12,13 @@ export class YoutubeDl {
         return await new Promise<any>((resolve, reject) => {
             exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
                 if(error) {
-                    reject(error);
+                    reject({error: error.message, stderr, stdout});
                     return
                 }
                 try {
                     resolve(JSON.parse(stdout));
                 } catch (e) {
-                    console.log(error)
-                    console.log(stdout)
-                    console.log(stderr)
-                    reject('youtube-dl did not respond with valid json: ' + stdout + stderr);
+                    reject({error: e, stderr, stdout});
                 }
             });
         });
