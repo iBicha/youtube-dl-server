@@ -14,5 +14,9 @@ npm start
 ## API
 
 ```
-GET /v1/video?url=YOUTUBE_URL_HERE
+GET /v1/video?url=<YOUTUBE_URL_HERE>&options=<OPTIONS>&schema=KEY1&schema=KEY2
+
+- url: required - Url of youtube video
+- options: optional - options to be passed to youtube-dl. Defaults to -f "best". See https://github.com/ytdl-org/youtube-dl/blob/master/README.md
+- schema: optional - array of keys to be returned, to avoid returning all the json dump from youtube-dl. E.g. /v1/video?url=https://www.youtube.com/watch?v=1PuGuqpHQGo&schema=url&schema=title
 ```

@@ -1,10 +1,13 @@
 import express from 'express';
 const cors = require('cors');
+const compression = require('compression')
+
 import {YoutubeDl} from "./YoutubeDl";
 
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use(compression())
 app.use(cors())
 
 app.get('/v1/video', async (req, res) => {
@@ -16,7 +19,8 @@ app.get('/v1/video', async (req, res) => {
             res.send('Missing url');
             return;
         }
-        const metadata = await YoutubeDl.getVideoMetadata(url, options);
+        let schema = req.query.schema as string[];
+        let metadata = await YoutubeDl.getVideoMetadata(url, options, schema);
         res.json(metadata);
     } catch (e) {
         console.error(e)
