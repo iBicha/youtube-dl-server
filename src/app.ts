@@ -29,6 +29,24 @@ app.get('/v1/video', async (req, res) => {
     }
 });
 
+app.get('/watch', async (req, res) => {
+    try {
+        const v = req.query.v as string;
+        const options = req.query.options as string;
+        if(!v){
+            res.status(400);
+            res.send('Missing video id!');
+            return;
+        }
+        let metadata = await YoutubeDl.getVideoMetadata(v, options, ['url']);
+        res.redirect(metadata.url);
+    } catch (e) {
+        console.error(e)
+        res.status(500);
+        res.send(e);
+    }
+});
+
 app.listen(port, () => {
     return console.log(`server is listening on http://localhost:${port}`);
 });
