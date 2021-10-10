@@ -9,25 +9,39 @@ const youtubeDlBin = path.resolve('tools/bin/youtube-dl' +(isWin ? '.exe' : ''))
 const ffmpegBin = 'ffmpeg';
 
 export class YoutubeDl {
-    public static async getVideoMetadata(url: string, options?: string) {
+    public static async getVideoMetadata(url: string, options?: string, schema?: string[]) {
         options = options ||  '-f \"best\"';
-        const command = `${youtubeDlBin} ${options} --dump-json ${url}`;
+        const command = `${youtubeDlBin} ${options} --dump-single-json ${url}`;
         return await new Promise<any>((resolve, reject) => {
             exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
                 if(error) {
-                    reject(error);
+                    reject({error: error.message, stderr, stdout});
                     return
                 }
                 try {
-                    resolve(JSON.parse(stdout));
+                    let resultObject = JSON.parse(stdout);
+                    if(schema) {
+                        resultObject = YoutubeDl.filterKeys(resultObject, schema);
+                    }
+                    resolve(resultObject);
                 } catch (e) {
-                    console.log(error)
-                    console.log(stdout)
-                    console.log(stderr)
-                    reject('youtube-dl did not respond with valid json: ' + stdout + stderr);
+                    reject({error: e, stderr, stdout});
                 }
             });
         });
+    }
+
+    private static filterKeys(obj: { [name: string]: any }, keys: string[]){
+        if(!Array.isArray(keys)) {
+            keys = [keys];
+        }
+        const reducer = function(accumulator: { [name: string]: any }, currentValue: string) {
+            if(obj[currentValue]) {
+                accumulator[currentValue] = obj[currentValue];
+            }
+            return accumulator;
+        };
+        return keys.reduce((reducer), {});
     }
 
     public static sendAudioStream(url: string, res: express.Response, inputFormat: string = "bestaudio", outputFormat: string = 'mp3') {
