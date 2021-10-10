@@ -44,9 +44,14 @@ export class YoutubeDl {
         return keys.reduce((reducer), {});
     }
 
-    public static sendAudioStream(url: string, res: express.Response, inputFormat: string = "bestaudio", outputFormat: string = 'mp3') {
+    public static sendAudioStream(url: string, res: express.Response, inputFormat: string = "bestaudio",
+                                  outputFormat: string = 'mp3', contentType: string = 'audio/mpeg') {
         const command = `${youtubeDlBin} -f "${inputFormat}" -o - ${url} | ${ffmpegBin} -i - -f ${outputFormat} -`;
         const proc = spawn('sh', ['-c', command]);
-        proc.stdout.pipe(res)
+        res.socket?.addListener("close", () => {
+            proc.kill();
+        });
+        res.setHeader('Content-Type', contentType)
+        proc.stdout.pipe(res);
     }
 }
