@@ -47,23 +47,32 @@ app.get('/watch', async (req, res) => {
     }
 });
 
-app.get('/v1/stream/audio', async (req, res) => {
-    try {
-        const url = req.query.url as string;
-        const input = req.query.input as string;
-        const output = req.query.output as string;
-        if(!url){
-            res.status(400);
-            res.send('Missing url');
-            return;
+if (process.env.ENABLE_STREAMING) {
+    app.get('/v1/stream/audio', async (req, res) => {
+        try {
+            const url = req.query.url as string;
+            const input = req.query.input as string;
+            const output = req.query.output as string;
+            if(!url){
+                res.status(400);
+                res.send('Missing url');
+                return;
+            }
+            YoutubeDl.sendAudioStream(url, res, input, output);
+        } catch (e) {
+            console.error(e)
+            res.status(500);
+            res.send(e);
         }
-        YoutubeDl.sendAudioStream(url, res, input, output);
-    } catch (e) {
-        console.error(e)
-        res.status(500);
-        res.send(e);
-    }
-});
+    });
+}
+else
+{
+    app.get('/v1/stream/audio', async (req, res) => {
+        res.status(403);
+        res.send("Streaming is disabled on this server. Use ENABLE_STREAMING environment variable to enable this feature.");
+    });
+}
 
 app.listen(port, () => {
     return console.log(`server is listening on http://localhost:${port}`);

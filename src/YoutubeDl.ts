@@ -48,20 +48,13 @@ export class YoutubeDl {
         inputFormat = inputFormat || "bestaudio";
         outputFormat = outputFormat || "mp3";
         let contentType = '';
-        switch (outputFormat) {
-            case "mp3":
-                contentType = "audio/mpeg";
-                break;
-            case "ogg":
-                contentType = "audio/ogg";
-                break;
-            case "wav":
-                contentType = "audio/wav";
-                break;
-            default:
-                res.status(400);
-                res.send(`Bad format: ${outputFormat} not supported`);
-                return;
+        try {
+            contentType = this.getStreamMimeType(outputFormat);
+        }
+        catch (e) {
+            res.status(400);
+            res.send(e);
+            return;
         }
         const command = `${youtubeDlBin} -f "${inputFormat}" -o - ${url} | ${ffmpegBin} -i - -f ${outputFormat} -`;
         const proc = spawn("sh", ["-c", command]);
@@ -70,5 +63,18 @@ export class YoutubeDl {
         });
         res.setHeader("Content-Type", contentType)
         proc.stdout.pipe(res);
+    }
+
+    static getStreamMimeType(format: string) {
+        switch (format) {
+            case "mp3":
+                return "audio/mpeg";
+            case "ogg":
+                return "audio/ogg";
+            case "wav":
+                return "audio/wav";
+            default:
+                throw new Error(`Format ${format} not supported`)
+        }
     }
 }
