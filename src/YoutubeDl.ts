@@ -44,14 +44,31 @@ export class YoutubeDl {
         return keys.reduce((reducer), {});
     }
 
-    public static sendAudioStream(url: string, res: express.Response, inputFormat: string = "bestaudio",
-                                  outputFormat: string = 'mp3', contentType: string = 'audio/mpeg') {
+    public static sendAudioStream(url: string, res: express.Response, inputFormat?: string, outputFormat?: string) {
+        inputFormat = inputFormat || "bestaudio";
+        outputFormat = outputFormat || "mp3";
+        let contentType = '';
+        switch (outputFormat) {
+            case "mp3":
+                contentType = "audio/mpeg";
+                break;
+            case "ogg":
+                contentType = "audio/ogg";
+                break;
+            case "wav":
+                contentType = "audio/wav";
+                break;
+            default:
+                res.status(400);
+                res.send(`Bad format: ${outputFormat} not supported`);
+                return;
+        }
         const command = `${youtubeDlBin} -f "${inputFormat}" -o - ${url} | ${ffmpegBin} -i - -f ${outputFormat} -`;
-        const proc = spawn('sh', ['-c', command]);
+        const proc = spawn("sh", ["-c", command]);
         res.socket?.addListener("close", () => {
             proc.kill();
         });
-        res.setHeader('Content-Type', contentType)
+        res.setHeader("Content-Type", contentType)
         proc.stdout.pipe(res);
     }
 }
