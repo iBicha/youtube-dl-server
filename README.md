@@ -25,7 +25,7 @@ Returns a json payload with requested information.
 
 ----
 
-GET /watch?url=<YOUTUBE_VIDEO_ID_HERE>&options=<OPTIONS>
+GET /watch?v=<YOUTUBE_VIDEO_ID_HERE>&options=<OPTIONS>
 
 Redirects to the raw video url.
 
