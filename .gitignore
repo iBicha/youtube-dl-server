@@ -1,5 +1,6 @@
 dist/*
 Tools/bin/youtube-dl
+Tools/bin/yt-dlp
 
 lib-cov
 *.seed

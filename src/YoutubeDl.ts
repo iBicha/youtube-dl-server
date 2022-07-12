@@ -3,12 +3,16 @@ const { exec } = require("child_process");
 const path = require('path');
 
 const isWin = process.platform === "win32";
-const bin = path.resolve('tools/bin/youtube-dl' +(isWin ? '.exe' : ''));
 
 export class YoutubeDl {
-    public static async getVideoMetadata(url: string, options?: string, schema?: string[]) {
-        options = options ||  '-f \"best\"';
-        const command = `${bin} ${options} --dump-single-json ${url}`;
+    public static async getVideoMetadata(url: string, options?: { cli?: "youtube-dl" | "yt-dlp", cliOptions?: string },
+                                         schema?: string[]) {
+        options = options || {};
+        options.cli = options.cli || "youtube-dl";
+        options.cliOptions = options.cliOptions || '-f \"best\"';
+
+        const bin = path.resolve('tools/bin/' + options.cli +(isWin ? '.exe' : ''));
+        const command = `${bin} ${options.cliOptions} --dump-single-json --no-warnings ${url}`;
         return await new Promise<any>((resolve, reject) => {
             exec(command, (error: ExecException | null, stdout: string, stderr: string) => {
                 if(error) {

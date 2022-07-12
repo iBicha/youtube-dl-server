@@ -13,14 +13,20 @@ app.use(cors())
 app.get('/v1/video', async (req, res) => {
     try {
         const url = req.query.url as string;
-        const options = req.query.options as string;
+        const cliOptions = req.query.options as string;
+        const cli = req.query.cli as "youtube-dl" | "yt-dlp";
         if(!url){
             res.status(400);
             res.send('Missing url');
             return;
         }
+        if (cli && cli !== "youtube-dl" && cli !== "yt-dlp"){
+            res.status(400);
+            res.send('Unsupported cli. valid options: youtube-dl | yt-dlp');
+            return;
+        }
         let schema = req.query.schema as string[];
-        let metadata = await YoutubeDl.getVideoMetadata(url, options, schema);
+        let metadata = await YoutubeDl.getVideoMetadata(url, {cli, cliOptions}, schema);
         res.json(metadata);
     } catch (e) {
         console.error(e)
@@ -32,13 +38,19 @@ app.get('/v1/video', async (req, res) => {
 app.get('/watch', async (req, res) => {
     try {
         const v = req.query.v as string;
-        const options = req.query.options as string;
+        const cliOptions = req.query.options as string;
+        const cli = req.query.cli as "youtube-dl" | "yt-dlp";
         if(!v){
             res.status(400);
             res.send('Missing video id!');
             return;
         }
-        let metadata = await YoutubeDl.getVideoMetadata(v, options, ['url']);
+        if (cli && cli !== "youtube-dl" && cli !== "yt-dlp"){
+            res.status(400);
+            res.send('Unsupported cli. valid options: youtube-dl | yt-dlp');
+            return;
+        }
+        let metadata = await YoutubeDl.getVideoMetadata(v, {cli, cliOptions}, ['url']);
         res.redirect(metadata.url);
     } catch (e) {
         console.error(e)
