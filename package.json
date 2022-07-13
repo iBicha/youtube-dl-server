@@ -1,13 +1,17 @@
 {
   "name": "youtube-dl-server",
-  "version": "1.1.1",
+  "version": "1.2.1",
   "description": "Youtube Rest API, powered by youtube-dl",
-  "main": "dist/app.js",
   "scripts": {
     "start": "ts-node src/app.ts",
+    "build": "tsc -p .",
     "download": "node ./tools/download.js",
     "postinstall": "npm run download",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "main": "./dist/app.js",
+  "bin": {
+    "youtube-dl-server": "./dist/app.js"
   },
   "keywords": [
     "typescript",

@@ -5,8 +5,8 @@ Intended to provide raw video url and other metadata as a json payload, not as a
 
 ## Getting started
 ```
-npm install
-npm start
+npm install -g youtube-dl-server
+youtube-dl-server
 ```
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
