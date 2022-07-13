@@ -11,7 +11,8 @@
   },
   "keywords": [
     "typescript",
-    "youtube-dl"
+    "youtube-dl",
+    "yt-dlp"
   ],
   "author": "Brahim Hadriche",
   "license": "unlicense",
