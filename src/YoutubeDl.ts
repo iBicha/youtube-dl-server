@@ -11,7 +11,7 @@ export class YoutubeDl {
         options.cli = options.cli || "youtube-dl";
         options.cliOptions = options.cliOptions || '-f \"best\"';
 
-        const bin = path.resolve('tools/bin/' + options.cli +(isWin ? '.exe' : ''));
+        const bin = path.resolve(__dirname, '../tools/bin/' + options.cli +(isWin ? '.exe' : ''));
         const command = `${bin} ${options.cliOptions} --dump-single-json --no-warnings ${url}`;
         return await new Promise<any>((resolve, reject) => {
             exec(command, (error: ExecException | null, stdout: string, stderr: string) => {

@@ -9,7 +9,7 @@ const cors = require('cors');
 const compression = require('compression');
 const YoutubeDl_1 = require("./YoutubeDl");
 const app = (0, express_1.default)();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 8080;
 app.use(compression());
 app.use(cors());
 app.get('/v1/video', async (req, res) => {
