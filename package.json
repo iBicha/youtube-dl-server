@@ -1,6 +1,6 @@
 {
   "name": "youtube-dl-server",
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Youtube Rest API, powered by youtube-dl",
   "scripts": {
     "start": "ts-node src/app.ts",

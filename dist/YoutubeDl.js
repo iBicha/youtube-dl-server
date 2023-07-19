@@ -7,9 +7,12 @@ const isWin = process.platform === "win32";
 class YoutubeDl {
     static async getVideoMetadata(url, options, schema) {
         options = options || {};
-        options.cli = options.cli || "youtube-dl";
+        options.cli = options.cli || "yt-dlp";
         options.cliOptions = options.cliOptions || '-f \"best\"';
         const bin = path.resolve(__dirname, '../tools/bin/' + options.cli + (isWin ? '.exe' : ''));
+        if (url.startsWith("-") && !url.startsWith("-- ")) {
+            url = "-- " + url;
+        }
         const command = `${bin} ${options.cliOptions} --dump-single-json --no-warnings ${url}`;
         return await new Promise((resolve, reject) => {
             exec(command, (error, stdout, stderr) => {
