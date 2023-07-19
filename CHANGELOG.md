@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Error when video id starts with dash "-"
 
+### Changed
+
+- yt-dlp is now the default tool (was youtube-dl)
+
 ## [1.2.4] - 2022-10-29
 
 ### Fixed

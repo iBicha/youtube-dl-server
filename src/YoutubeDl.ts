@@ -8,7 +8,7 @@ export class YoutubeDl {
     public static async getVideoMetadata(url: string, options?: { cli?: "youtube-dl" | "yt-dlp", cliOptions?: string },
                                          schema?: string[]) {
         options = options || {};
-        options.cli = options.cli || "youtube-dl";
+        options.cli = options.cli || "yt-dlp";
         options.cliOptions = options.cliOptions || '-f \"best\"';
 
         const bin = path.resolve(__dirname, '../tools/bin/' + options.cli +(isWin ? '.exe' : ''));

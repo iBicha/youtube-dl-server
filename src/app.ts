@@ -63,5 +63,5 @@ app.get('/watch', async (req, res) => {
 
 app.listen(port, () => {
     console.log(`server is listening on http://localhost:${port}`);
-    console.log(`Try this url in your browser: http://localhost:${port}/watch?v=dQw4w9WgXcQ&cli=yt-dlp`);
+    console.log(`Try this url in your browser: http://localhost:${port}/watch?v=dQw4w9WgXcQ`);
 });

@@ -21,7 +21,7 @@ Returns a json payload with requested information.
 - url: required - Url of youtube video
 - options: optional - options to be passed to youtube-dl. Defaults to -f "best". See https://github.com/ytdl-org/youtube-dl/blob/master/README.md
 - schema: optional - array of keys to be returned, to avoid returning all the json dump from youtube-dl. E.g. /v1/video?url=https://www.youtube.com/watch?v=1PuGuqpHQGo&schema=url&schema=title
-- cli: optional - the cli tool to be used. "youtube-dl" | "yt-dlp". Defaults to "youtube-dl"
+- cli: optional - the cli tool to be used. "youtube-dl" | "yt-dlp". Defaults to "yt-dlp"
 
 ----
 
@@ -31,5 +31,5 @@ Redirects to the raw video url.
 
 - v: required - Url or ID of the video, same as the url parameter of GET /v1/video
 - options: optional - options to be passed to youtube-dl. Defaults to -f "best". See https://github.com/ytdl-org/youtube-dl/blob/master/README.md
-- cli: optional - the cli tool to be used. "youtube-dl" | "yt-dlp". Defaults to "youtube-dl"
+- cli: optional - the cli tool to be used. "youtube-dl" | "yt-dlp". Defaults to "yt-dlp"
 ```
