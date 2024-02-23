@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.YoutubeDl = void 0;
+const sanitizer_1 = require("./sanitizer");
 const { exec } = require("child_process");
 const path = require('path');
 const isWin = process.platform === "win32";
@@ -9,6 +10,7 @@ class YoutubeDl {
         options = options || {};
         options.cli = options.cli || "yt-dlp";
         options.cliOptions = options.cliOptions || '-f \"best\"';
+        url = sanitizer_1.Sanitizer.sanitizeUrl(url);
         const bin = path.resolve(__dirname, '../tools/bin/' + options.cli + (isWin ? '.exe' : ''));
         if (url.startsWith("-") && !url.startsWith("-- ")) {
             url = "-- " + url;

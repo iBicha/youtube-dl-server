@@ -1,6 +1,6 @@
 {
   "name": "youtube-dl-server",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Youtube Rest API, powered by youtube-dl",
   "scripts": {
     "start": "ts-node src/app.ts",
@@ -25,15 +25,15 @@
   "author": "Brahim Hadriche",
   "license": "unlicense",
   "dependencies": {
-    "@types/express": "^4.17.17",
-    "@types/node": "^20.4.2",
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.20",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "express": "^4.18.2",
     "request": "^2.88.2",
-    "ts-node": "^10.9.1",
+    "ts-node": "^10.9.2",
     "tslint": "^6.1.3",
-    "typescript": "^5.1.6"
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
