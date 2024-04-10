@@ -1,4 +1,17 @@
+Archiving this repo for a few reasons:
+
+- It's slow to spin a python process with every request
+- There needs to be a better performance and caching
+- Security can be an issue with this approach
+- There are better alternatives than this 
+
+I apologize if this is abrupt - if this project is important to you, please do feel free to keep it alive by creating a fork.
+
+Thanks - iBicha
+
 # youtube-dl-server
+
+
 A youtube-dl web server, powered by youtube-dl.
 
 Intended to provide raw video url and other metadata as a json payload, not as a streaming server.
